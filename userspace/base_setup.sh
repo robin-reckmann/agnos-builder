@@ -17,7 +17,6 @@ apt-get install -yq curl sudo wget
 bash -c "$(curl -sL https://git.io/vokNn)"
 
 # Install packages
-export DEBIAN_FRONTEND=noninteractive
 apt-fast install --no-install-recommends -yq locales systemd adduser
 
 # Create privileged user
@@ -106,8 +105,6 @@ apt-fast install --no-install-recommends -yq \
     wireless-tools \
     zlib1g-dev
 
-rm -rf /var/lib/apt/lists/*
-
 # Allow chrony to make a big adjustment to system time on boot
 echo "makestep 0.1 3" >> /etc/chrony/chrony.conf
 
@@ -128,7 +125,6 @@ echo "comma ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 ln -sf /bin/bash /bin/sh
 
 # Install necessary libs
-apt-fast update -yq
 apt-fast install --no-install-recommends -yq \
     libacl1:armhf \
     libasan5-armhf-cross \
@@ -208,3 +204,5 @@ apt-fast install --no-install-recommends -yq \
     hostapd \
     libgtk2.0-dev \
     libxml2:armhf \
+        
+rm -rf /var/lib/apt/lists/*
