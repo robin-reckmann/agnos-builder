@@ -1,6 +1,6 @@
 # check=error=true
 
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG UNAME
 ARG UID
@@ -10,14 +10,22 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    python2 \
-    build-essential \
-    libssl-dev \
     bc \
-    python-is-python2 \
-    openssl \
+    bison \
+    build-essential \
     ccache \
+    cpio \
+    debhelper-compat \
+    flex \
+    kmod \
+    libelf-dev \
+    libncurses-dev \
     libcap2-bin \
+    libssl-dev \
+    openssl \
+    python3 \
+    python-is-python3 \
+    rsync \
     && rm -rf /var/lib/apt/lists/*
 
 RUN if [ ${UID:-0} -ne 0 ] && [ ${GID:-0} -ne 0 ]; then \
