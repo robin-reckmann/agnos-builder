@@ -66,7 +66,7 @@ build_kernel() {
   echo "-- Config --"
   make $DEFCONFIG comma3.config O=out
   echo "-- Make: $(nproc --all) cores --"
-  make -j$(nproc --all) O=out  # Image.gz
+  make bindeb-pkg -j$(nproc --all) O=out KDEB_PKGVERSION=$(make kernelversion)-1
 
   # Turn on if you want perf
   # LDFLAGS=-static make -j$(nproc --all) -C tools/perf
@@ -102,6 +102,8 @@ build_kernel() {
   # Copy to output dir
   mkdir -p $OUTPUT_DIR
   mv $BOOT_IMG $OUTPUT_DIR/
+  cp $DIR/linux-kernel/linux-*.deb $OUTPUT_DIR/
+
 }
 
 # Run build_kernel in container
