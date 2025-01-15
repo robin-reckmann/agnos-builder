@@ -32,6 +32,12 @@ mkdir -p $DIR/userspace/kernel-debs
 cp $OUTPUT_DIR/linux-headers*.deb $DIR/userspace/kernel-debs/
 cp $OUTPUT_DIR/linux-image*.deb $DIR/userspace/kernel-debs/
 
+# Check out Linux firmware if not done already
+if [ ! -d linux-firmware ]; then
+  echo -e "Pulling linux firmware repo"
+  git clone https://gitlab.com/kernel-firmware/linux-firmware.git --depth=1
+fi
+
 # Download Ubuntu Base if not done already
 if [ ! -f $UBUNTU_FILE ]; then
   echo -e "Downloading Ubuntu Base: $UBUNTU_FILE"

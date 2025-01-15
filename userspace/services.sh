@@ -15,7 +15,6 @@ systemctl enable lte.service
 systemctl enable sound.service
 systemctl enable weston.service
 systemctl enable weston-ready.service
-systemctl enable wifi.service
 systemctl enable init-qcom.service
 systemctl enable power_drop_monitor.service
 systemctl enable brightnessd.service
@@ -40,7 +39,6 @@ systemctl disable apt-daily.service
 systemctl disable apt-daily-upgrade.timer
 systemctl disable apt-daily.timer
 systemctl disable serial-getty@ttyS0.service
-systemctl disable wlan_daemon.service
 systemctl disable remote-fs.target
 systemctl disable remote-fs-pre.target
 systemctl disable e2scrub_all.timer

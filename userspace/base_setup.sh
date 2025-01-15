@@ -90,6 +90,8 @@ apt-fast install --no-install-recommends -yq \
     nvme-cli \
     openssl \
     ppp \
+    qrtr-tools \
+    rmtfs \
     smartmontools \
     speedtest-cli \
     ssh \
@@ -97,6 +99,7 @@ apt-fast install --no-install-recommends -yq \
     sudo \
     systemd-resolved \
     systemd-timesyncd \
+    tqftpserv \
     traceroute \
     tk-dev \
     ubuntu-minimal \
@@ -105,6 +108,7 @@ apt-fast install --no-install-recommends -yq \
     udev \
     udhcpc \
     wget \
+    wireless-regdb \
     wireless-tools \
     zlib1g-dev
 
