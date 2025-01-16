@@ -1,9 +1,6 @@
 #!/bin/bash
 
-function gpio {
-  echo "out" > /sys/class/gpio/gpio$1/direction
-  echo $2 > /sys/class/gpio/gpio$1/value
-}
+GPIO_CHIP=gpiochip2
 
 HUB_RST_N=30
 LTE_RST_N=50
@@ -20,16 +17,16 @@ function is_modem_up {
 
 function reset {
   echo " Resetting..."
-  gpio $LTE_RST_N 1
+  gpioset $GPIO_CHIP $LTE_RST_N=1
   sleep 1
-  gpio $LTE_RST_N 0
+  gpioset $GPIO_CHIP $LTE_RST_N=0
 }
 
 function power_button {
   echo " Pulsing power button..."
-  gpio $LTE_PWRKEY 1
+  gpioset $GPIO_CHIP $LTE_PWRKEY=1
   sleep 1
-  gpio $LTE_PWRKEY 0
+  gpioset $GPIO_CHIP $LTE_PWRKEY=0
 }
 
 function is_online {
@@ -65,7 +62,7 @@ function is_offline {
 }
 
 # Boot into the regular mode
-gpio $LTE_BOOT 0
+gpioset $GPIO_CHIP $LTE_BOOT=0
 
 case "$1" in
   start)
