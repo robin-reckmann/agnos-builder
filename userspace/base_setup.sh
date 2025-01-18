@@ -52,6 +52,7 @@ update-locale LANG=en_US.UTF-8
 
 apt-fast upgrade -yq
 apt-fast install --no-install-recommends -yq \
+    alsa-ucm-conf \
     alsa-utils \
     apport-retrace \
     bc \
