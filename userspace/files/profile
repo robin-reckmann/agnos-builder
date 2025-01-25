@@ -46,3 +46,6 @@ export PATH="/usr/comma/shims:${PATH}"
 atc() {
   mmcli -m any --command="${@}"
 }
+
+#OpenCL support
+export RUSTICL_ENABLE=freedreno

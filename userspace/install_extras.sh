@@ -6,6 +6,8 @@ apt-fast update && apt-fast install -y --no-install-recommends \
   bash-completion \
   iperf \
   irqtop \
+  libdrm-tests \
+  mesa-utils \
   ripgrep \
   nfs-common \
   socat
