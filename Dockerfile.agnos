@@ -160,9 +160,6 @@ RUN /tmp/agnos/install_extras.sh
 COPY --from=agnos-compiler-qtwayland5 /tmp/qtwayland5.deb /tmp/qtwayland5.deb
 RUN cd /tmp && apt-get -o Dpkg::Options::="--force-overwrite" install -yq --allow-downgrades ./qtwayland5.deb
 
-# Patched libeglSubDriverWayland with fixed nullptr deref in CommitBuffer
-COPY ./userspace/files/libeglSubDriverWayland.so.patched /lib/aarch64-linux-gnu/libeglSubDriverWayland.so
-
 COPY ./userspace/home/ /home/$USERNAME/
 COPY ./userspace/home/.config/ /root/.config
 RUN chown -R $USERNAME: /home/$USERNAME/.config
@@ -198,10 +195,6 @@ COPY ./userspace/libs32/* /usr/lib/arm-linux-gnueabihf/
 # kernel headers for the AGNOS kernel (built on device)
 COPY ./userspace/kernel-debs/linux-*.deb /tmp/
 RUN dpkg -i /tmp/linux-*.deb
-
-# Weston with hacked touch rotate and color correction
-COPY ./userspace/files/weston /usr/bin/weston
-COPY ./userspace/files/gl-renderer.so /usr/lib/arm-linux-gnueabihf/weston
 
 # Setup systemd services
 COPY ./userspace/services.sh /tmp/agnos

@@ -99,6 +99,7 @@ apt-fast install --no-install-recommends -yq \
     ppp \
     qrtr-tools \
     rmtfs \
+    seatd \
     smartmontools \
     speedtest-cli \
     ssh \
@@ -114,6 +115,7 @@ apt-fast install --no-install-recommends -yq \
     ubuntu-standard \
     udev \
     udhcpc \
+    weston \
     wget \
     wireless-regdb \
     wireless-tools \
