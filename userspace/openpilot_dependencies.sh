@@ -17,6 +17,7 @@ apt-fast install --no-install-recommends -yq \
     curl \
     darkstat \
     dkms \
+    ffmpeg \
     gcc-arm-none-eabi \
     gpiod \
     libarchive-dev \
