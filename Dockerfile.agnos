@@ -27,12 +27,6 @@ COPY ./userspace/compile-capnp.sh /tmp/agnos/
 RUN --mount=type=cache,target=/root/.ccache,id=capnp,sharing=shared \
     /tmp/agnos/compile-capnp.sh
 
-# ffmpeg
-FROM agnos-compiler AS agnos-compiler-ffmpeg
-COPY ./userspace/compile-ffmpeg.sh /tmp/agnos/
-RUN --mount=type=cache,target=/root/.ccache,id=ffmpeg,sharing=shared \
-    /tmp/agnos/compile-ffmpeg.sh
-
 # ModemManager
 FROM agnos-compiler AS agnos-compiler-modemmanager
 COPY ./userspace/compile-modemmanager.sh /tmp/agnos/
@@ -119,10 +113,6 @@ RUN cd /tmp && \
 # Pre-compiled capnp (must be before python install)
 COPY --from=agnos-compiler-capnp /tmp/capnproto.deb /tmp/capnproto.deb
 RUN cd /tmp && apt-get -o Dpkg::Options::="--force-overwrite" install -yq ./capnproto.deb
-
-# Use other pre-compiled packages
-COPY --from=agnos-compiler-ffmpeg /tmp/ffmpeg.deb /tmp/ffmpeg.deb
-RUN cd /tmp && apt-get -o Dpkg::Options::="--force-overwrite" install -yq ./ffmpeg.deb
 
 # Installing firmware from linux-firmware repo
 RUN mkdir -p /usr/lib/firmware/ath10k/WCN3990
