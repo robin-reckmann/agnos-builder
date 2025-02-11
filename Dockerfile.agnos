@@ -127,12 +127,14 @@ RUN cd /tmp && apt-get -o Dpkg::Options::="--force-overwrite" install -yq ./ffmp
 # Installing firmware from linux-firmware repo
 RUN mkdir -p /usr/lib/firmware/ath10k/WCN3990
 RUN mkdir -p /usr/lib/firmware/qcom/sdm845
+RUN mkdir -p /usr/lib/firmware/qcom/venus-5.2
 COPY ./linux-firmware/ath10k/WCN3990/hw1.0 /usr/lib/firmware/ath10k/WCN3990/hw1.0
 RUN ln -s /usr/lib/firmware/ath10k/WCN3990/hw1.0/wlanmdsp.mbn /usr/lib/firmware/qcom/sdm845/wlanmdsp.mbn
 COPY ./linux-firmware/qcom/sdm845/mba.mbn ./linux-firmware/qcom/sdm845/modem_nm.mbn /usr/lib/firmware/qcom/sdm845/
 COPY ./linux-firmware/qcom/a630_gmu.bin /lib/firmware/qcom/
 COPY ./linux-firmware/qcom/a630_sqe.fw /lib/firmware/qcom/
 COPY ./linux-firmware/qcom/sdm845/a630_zap.mbn /lib/firmware/qcom/sdm845/
+COPY ./linux-firmware/qcom/venus-5.2/venus.mbn /lib/firmware/qcom/venus-5.2/
 
 # ADSP firmware
 COPY ./linux-firmware/qcom/sdm845/adsp.mbn /usr/lib/firmware/qcom/sdm845/adsp.mbn
