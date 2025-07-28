@@ -1,3 +1,4 @@
-[submodule "agnos-kernel-sdm845"]
-  path = agnos-kernel-sdm845
-  url = ../../commaai/agnos-kernel-sdm845.git
+[submodule "linux-kernel"]
+	path = linux-kernel
+	url = https://github.com/robin-reckmann/linux.git
+	branch = comma3/v6.16
