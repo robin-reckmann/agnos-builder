@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DEFCONFIG=tici_defconfig
+DEFCONFIG=defconfig
 
 # Get directories and make sure we're in the correct spot to start the build
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
@@ -36,16 +36,10 @@ CONTAINER_ID=$(docker run -d -v $DIR:$DIR -w $DIR agnos-meta-builder)
 trap "echo \"Cleaning up container:\"; \
 docker container rm -f $CONTAINER_ID" EXIT
 
-# Clone kernel if not done already
-if git submodule status --cached agnos-kernel-sdm845/ | grep "^-"; then
-  echo "Cloning agnos-kernel-sdm845"
-  git submodule update --init agnos-kernel-sdm845
-fi
-
 $DIR/tools/extract_tools.sh
 
 build_kernel() {
-  cd agnos-kernel-sdm845
+  cd linux-kernel
 
   # Build parameters
   ARCH=$(uname -m)
@@ -69,18 +63,22 @@ build_kernel() {
   export KCFLAGS="-w"
 
   # Load defconfig and build kernel
-  echo "-- First make --"
-  make $DEFCONFIG O=out
-  echo "-- Second make: $(nproc --all) cores --"
-  make -j$(nproc --all) O=out  # Image.gz-dtb
+  echo "-- Config --"
+  make $DEFCONFIG comma3.config O=out
+  echo "-- Make: $(nproc --all) cores --"
+  make bindeb-pkg -j$(nproc --all) O=out KDEB_PKGVERSION=$(make kernelversion)-1
 
   # Turn on if you want perf
   # LDFLAGS=-static make -j$(nproc --all) -C tools/perf
 
+  # Create Image.gz-dtb
+  cd out/arch/arm64/boot/
+  cat Image.gz dts/qcom/sdm845-comma3.dtb > Image.gz-dtb
+
   # Copy over Image.gz-dtb
   mkdir -p $TMP_DIR
   cd $TMP_DIR
-  cp $DIR/agnos-kernel-sdm845/out/arch/arm64/boot/Image.gz-dtb .
+  cp $DIR/linux-kernel/out/arch/arm64/boot/Image.gz-dtb .
 
   # Make boot image
   $TOOLS/mkbootimg \
@@ -104,6 +102,8 @@ build_kernel() {
   # Copy to output dir
   mkdir -p $OUTPUT_DIR
   mv $BOOT_IMG $OUTPUT_DIR/
+  cp $DIR/linux-kernel/linux-*.deb $OUTPUT_DIR/
+
 }
 
 # Run build_kernel in container
