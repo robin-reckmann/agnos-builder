@@ -70,6 +70,7 @@ apt-fast install --no-install-recommends -yq \
     ifmetric \
     ifupdown \
     iptables-persistent \
+    iw \
     jq \
     landscape-common \
     libi2c-dev \
@@ -90,6 +91,8 @@ apt-fast install --no-install-recommends -yq \
     nvme-cli \
     openssl \
     ppp \
+    qrtr-tools \
+    rmtfs \
     smartmontools \
     speedtest-cli \
     squashfs-tools \
@@ -100,12 +103,14 @@ apt-fast install --no-install-recommends -yq \
     systemd-timesyncd \
     traceroute \
     tk-dev \
+    tqftpserv \
     ubuntu-minimal \
     ubuntu-server \
     ubuntu-standard \
     udev \
     udhcpc \
     wget \
+    wireless-regdb \
     wireless-tools \
     zlib1g-dev
 

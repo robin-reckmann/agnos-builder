@@ -18,7 +18,7 @@ OUT_IMAGE="$OUTPUT_DIR/system.img"
 
 # the partition is 10G, but openpilot's updater didn't always handle the full size
 # openpilot fix, shipped in 0.9.8 (8/18/24): https://github.com/commaai/openpilot/pull/33320
-ROOTFS_IMAGE_SIZE=5000M
+ROOTFS_IMAGE_SIZE=4700M
 
 # Create temp dir if non-existent
 mkdir -p $BUILD_DIR $OUTPUT_DIR
@@ -31,6 +31,12 @@ fi
 mkdir -p $DIR/userspace/kernel-debs
 cp $OUTPUT_DIR/linux-headers*.deb $DIR/userspace/kernel-debs/
 cp $OUTPUT_DIR/linux-image*.deb $DIR/userspace/kernel-debs/
+
+# Check out Linux firmware if not done already
+if [ ! -d linux-firmware ]; then
+  echo -e "Pulling linux firmware repo"
+  git clone https://gitlab.com/kernel-firmware/linux-firmware.git --depth=1
+fi
 
 # Download Ubuntu Base if not done already
 if [ ! -f $UBUNTU_FILE ]; then

@@ -106,7 +106,7 @@ RUN mkdir -p /tmp/agnos/debs
 COPY ./userspace/debs /tmp/agnos/debs
 COPY ./userspace/hardware_setup.sh /tmp/agnos
 RUN /tmp/agnos/hardware_setup.sh
-RUN mv /data/persist /system/ && rm -rf /data/*
+RUN rm -rf /data/*
 
 COPY --from=agnos-compiler-libqmi /tmp/libqmi.deb /tmp/
 COPY --from=agnos-compiler-modemmanager /tmp/modemmanager.deb /tmp/
@@ -141,6 +141,13 @@ COPY --from=agnos-compiler-ffmpeg /tmp/ffmpeg.deb /tmp/ffmpeg.deb
 RUN cd /tmp && apt-get -o Dpkg::Options::="--force-overwrite" install -yq ./ffmpeg.deb
 
 ARG XDG_DATA_HOME="/usr/local"
+
+# Install firmware from linux-firmware repo
+RUN mkdir -p /usr/lib/firmware/ath10k/WCN3990
+RUN mkdir -p /usr/lib/firmware/qcom/sdm845
+COPY ./linux-firmware/ath10k/WCN3990/hw1.0 /usr/lib/firmware/ath10k/WCN3990/hw1.0
+RUN ln -s /usr/lib/firmware/ath10k/WCN3990/hw1.0/wlanmdsp.mbn /usr/lib/firmware/qcom/sdm845/wlanmdsp.mbn
+COPY ./linux-firmware/qcom/sdm845/mba.mbn ./linux-firmware/qcom/sdm845/modem_nm.mbn /usr/lib/firmware/qcom/sdm845/
 
 # Install openpilot python packages
 COPY ./userspace/uv /tmp/agnos/uv
