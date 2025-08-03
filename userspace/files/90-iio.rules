@@ -1,0 +1,1 @@
+KERNEL=="iio:device*", GROUP="iio", MODE="0660", RUN+="/bin/chmod -R g+rw /sys/bus/iio/devices/%k"
