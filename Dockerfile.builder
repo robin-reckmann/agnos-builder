@@ -8,6 +8,9 @@ ARG GID
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+COPY ./scripts/setup-multiarch-arm64.sh /tmp/
+RUN /tmp/setup-multiarch-arm64.sh
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     android-sdk-libsparse-utils \
@@ -17,11 +20,14 @@ RUN apt-get update && \
     ccache \
     debhelper-compat \
     flex \
+    gcc-aarch64-linux-gnu \
     kmod \
     libcap2-bin \
     libdw-dev \
     libelf-dev \
+    libelf-dev:arm64 \
     libssl-dev \
+    libssl-dev:arm64 \
     openssl \
     python3 \
     python-is-python3 \
