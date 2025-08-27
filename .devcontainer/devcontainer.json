@@ -1,0 +1,28 @@
+{
+  "name": "agnos-kernel-dev",
+  "build": { "dockerfile": "../Dockerfile.builder", "context": ".." },
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+  "workspaceFolder": "${localWorkspaceFolder}/linux-kernel",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "llvm-vs-code-extensions.vscode-clangd",
+        "xaver.clang-format"
+      ],
+      "settings": {
+        "clangd.path": "/usr/bin/clangd",
+        "clangd.arguments": [
+          "--compile-commands-dir=.",
+          "--background-index",
+          "--header-insertion=never"
+        ],
+        "C_Cpp.intelliSenseEngine": "Disabled",
+        "C_Cpp.errorSquiggles": "Disabled",
+        "editor.defaultFormatter": "xaver.clang-format",
+        "editor.formatOnSave": true
+      }
+    }
+  }
+}

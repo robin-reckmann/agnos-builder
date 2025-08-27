@@ -15,8 +15,11 @@ RUN apt-get update && \
     bison \
     build-essential \
     ccache \
+    clangd \
+    clang-format \
     debhelper-compat \
     flex \
+    git \
     kmod \
     libcap2-bin \
     libdw-dev \

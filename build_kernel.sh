@@ -67,6 +67,7 @@ build_kernel() {
   make $DEFCONFIG comma3.config O=out
   echo "-- Make: $(nproc --all) cores --"
   make bindeb-pkg -j$(nproc --all) O=out KDEB_PKGVERSION=$(make kernelversion)-1
+  python3 scripts/clang-tools/gen_compile_commands.py -d out
 
   # Turn on if you want perf
   # LDFLAGS=-static make -j$(nproc --all) -C tools/perf
