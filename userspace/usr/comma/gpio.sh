@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GPIO_CHIP=gpiochip0
+GPIO_CHIP=gpiochip1
 
 pins=(
 # 27  # SW_3V3_EN

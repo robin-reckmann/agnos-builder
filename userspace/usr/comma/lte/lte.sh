@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GPIO_CHIP=gpiochip0
+GPIO_CHIP=gpiochip1
 
 HUB_RST_N=30
 LTE_RST_N=50
