@@ -1,9 +1,11 @@
 [Unit]
-Description=Sound
+Description=ALSA UCM init
+BindsTo=dev-snd-controlC0.device
+After=dev-snd-controlC0.device
 
 [Service]
 Type=oneshot
-ExecStart=/usr/comma/sound/sound_init.sh
+ExecStart=/usr/bin/alsaucm -c hw:comma3 set _verb HiFi set _enadev Speaker set _enadev Microphone
 
 [Install]
 WantedBy=multi-user.target
