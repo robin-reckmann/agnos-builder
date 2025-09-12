@@ -1,2 +1,7 @@
-CompileFlags:       
-  Remove: -mabi=lp64
+CompileFlags:
+  Remove: [
+    -fconserve-stack,
+    -femit-struct-debug-baseonly,
+    -fno-allow-store-data-races,
+    -mabi=lp64,
+  ]
