@@ -9,6 +9,8 @@ apt-fast update && apt-fast install -y --no-install-recommends \
   iperf3 \
   dnsmasq \
   irqtop \
+  libdrm-tests \
+  mesa-utils \
   ripgrep \
   ncdu \
   nfs-common \
