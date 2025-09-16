@@ -31,6 +31,7 @@ echo "$USERNAME:$PASSWD" | chpasswd
 groupadd gpio
 groupadd gpu
 groupadd iio
+groupadd input
 adduser $USERNAME root
 adduser $USERNAME video
 adduser $USERNAME gpio
@@ -41,6 +42,7 @@ adduser $USERNAME disk
 adduser $USERNAME dialout
 adduser $USERNAME iio
 adduser $USERNAME systemd-journal
+adduser $USERNAME input
 
 # Enable serial console on UART
 systemctl enable serial-getty@ttyS0.service
@@ -102,6 +104,7 @@ apt-fast install --no-install-recommends -yq \
     ppp \
     qrtr-tools \
     rmtfs \
+    seatd \
     smartmontools \
     speedtest-cli \
     squashfs-tools \
@@ -118,6 +121,7 @@ apt-fast install --no-install-recommends -yq \
     ubuntu-standard \
     udev \
     udhcpc \
+    weston \
     wget \
     wireless-regdb \
     wireless-tools \

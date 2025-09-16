@@ -1,31 +1,32 @@
 [Unit]
 Description=Weston
+After=systemd-user-sessions.service getty@tty1.service
 Conflicts=getty@tty1.service
 
 [Service]
-Type=simple
-Restart=no
-KillSignal=SIGKILL
-Environment="XDG_RUNTIME_DIR=/var/tmp/weston"
+Type=notify
+User=comma
+Group=comma
 
-UtmpIdentifier=tty1
+RuntimeDirectory=weston-comma
+RuntimeDirectoryMode=0700
+Environment=XDG_RUNTIME_DIR=/run/weston-comma
+
+Environment=WESTON_MODULES=systemd-notify.so
+
 TTYPath=/dev/tty1
 TTYReset=yes
 TTYVHangup=yes
 TTYVTDisallocate=yes
+StandardInput=tty
 
-ExecStartPre=/bin/bash -c "/usr/local/venv/bin/python -c 'import fcntl; KDSETMODE = 0x4B3A; KD_TEXT = 0x00; fd = open(\"/dev/tty1\", \"w\"); fcntl.ioctl(fd, KDSETMODE, KD_TEXT); fd.close()'"
-ExecStartPre=/bin/bash -c "/usr/local/venv/bin/python -c 'from PIL import Image; img=Image.open(\"/usr/comma/bg.jpg\"); (img.rotate(180) if open(\"/sys/devices/platform/vendor/vendor:gpio-som-id/som_id\").read().strip() == \"1\" else img).save(\"/tmp/bg.jpg\")'"
-ExecStartPre=/bin/bash -c "mkdir -p $XDG_RUNTIME_DIR"
-ExecStartPre=/bin/bash -c "chown -R comma: $XDG_RUNTIME_DIR"
-ExecStartPre=/bin/bash -c "chmod -R 700 $XDG_RUNTIME_DIR"
+ExecStart=/usr/bin/weston --backend=drm --config=/usr/comma/weston.ini --socket=wayland-0
+StandardOutput=journal
+StandardError=journal
 
-ExecStartPre=/bin/bash -c "mkdir -p /data/misc/display || true"
-ExecStartPre=/bin/bash -c "echo 0 > /data/misc/display/sdm_dbg_cfg.txt || true"
-ExecStartPre=/bin/bash -c "echo 0 > /data/misc/display/gbm_dbg_cfg.txt || true"
-
-ExecStartPre=/bin/chvt 1
-ExecStart=/usr/bin/weston --idle-time=0 --tty=1 --config=/usr/comma/weston.ini
+Restart=always
+RestartSec=1s
+UMask=0077
 
 [Install]
 WantedBy=multi-user.target
