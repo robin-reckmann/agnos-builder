@@ -1,6 +1,7 @@
 #!/bin/bash
 
 setup() {
+  sudo modprobe libcomposite
   # Check if /config is already mounted
   if ! mountpoint -q /config; then
     sudo mount -t configfs none /config
@@ -46,7 +47,7 @@ start() {
   setprop service.adb.tcp.port -1
 
   cd /config/usb_gadget/g1
-  echo "a600000.dwc3" | sudo tee UDC
+  echo "a600000.usb" | sudo tee UDC
 }
 
 stop() {
