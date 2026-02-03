@@ -25,11 +25,13 @@ useradd -G sudo -m -s /bin/bash $USERNAME
 echo "$USERNAME:$PASSWD" | chpasswd
 groupadd gpio
 groupadd gpu
+groupadd iio
 adduser $USERNAME root
 adduser $USERNAME video
 adduser $USERNAME gpio
 adduser $USERNAME adm
 adduser $USERNAME gpu
+adduser $USERNAME iio
 adduser $USERNAME audio
 adduser $USERNAME disk
 adduser $USERNAME dialout
