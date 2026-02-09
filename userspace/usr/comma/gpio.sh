@@ -1,8 +1,9 @@
 #!/bin/bash
 
+GPIO_CHIP=3400000.pinctrl
+
 function gpio {
-  echo "out" > /sys/class/gpio/gpio$1/direction
-  echo $2 > /sys/class/gpio/gpio$1/value
+  gpioset $GPIO_CHIP $1=$2
 }
 
 pins=(
@@ -21,23 +22,6 @@ pins=(
 52  # LTE_BOOT
 1264  # POWER ALERT
 )
-
-for p in ${pins[@]}; do
-  echo $p
-
-  # this is SSD_3v3 EN on tici
-  if [ "$p" -eq 41 ] && grep -q "comma tici" /sys/firmware/devicetree/base/model; then
-    echo "Skipping $p"
-    continue
-  fi
-
-  echo $p > /sys/class/gpio/export
-  until [ -d /sys/class/gpio/gpio$p ]
-  do
-    sleep .05
-  done
-done
-
 
 HUB_RST_N=30
 gpio $HUB_RST_N 1

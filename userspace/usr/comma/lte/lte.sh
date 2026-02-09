@@ -1,8 +1,9 @@
 #!/bin/bash
 
+GPIO_CHIP=3400000.pinctrl
+
 function gpio {
-  echo "out" > /sys/class/gpio/gpio$1/direction
-  echo $2 > /sys/class/gpio/gpio$1/value
+  gpioset $GPIO_CHIP $1=$2
 }
 
 HUB_RST_N=30
