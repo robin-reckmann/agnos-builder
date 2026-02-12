@@ -1,5 +1,5 @@
 [Path]
-PathModified=/data/params/d/AdbEnabled
+PathModified=/data/params/d/UsbNcmEnabled
 
 [Install]
 WantedBy=multi-user.target

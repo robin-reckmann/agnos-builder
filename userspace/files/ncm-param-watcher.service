@@ -1,10 +1,10 @@
 [Unit]
-Description=ADB param watcher
+Description=NCM param watcher
 After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/comma/set_adb.sh
+ExecStart=/usr/comma/set_ncm.sh
 
 [Install]
 WantedBy=multi-user.target
