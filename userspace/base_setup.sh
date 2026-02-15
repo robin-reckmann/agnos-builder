@@ -8,6 +8,11 @@ HOST=comma
 touch /TICI
 touch /AGNOS
 
+apt-get update
+apt-get install -y --no-install-recommends \
+     software-properties-common
+add-apt-repository ppa:kisak/kisak-mesa
+
 # Add armhf as supported architecture
 dpkg --add-architecture armhf
 
@@ -86,6 +91,7 @@ apt-fast install --no-install-recommends -yq \
     libssl-dev \
     libffi-dev \
     llvm \
+    mesa-opencl-icd \
     nano \
     net-tools \
     nload \

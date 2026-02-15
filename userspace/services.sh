@@ -27,7 +27,6 @@ systemctl enable ncm-param-watcher.service
 systemctl enable logrotate-hourly.timer
 systemctl enable avahi-daemon
 systemctl enable avahi-ssh-publish.service
-systemctl enable screen_calibration.service
 
 # Disable some of our services
 systemctl disable agnos-tests.service
