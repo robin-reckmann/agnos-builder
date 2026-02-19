@@ -142,6 +142,7 @@ COPY ./linux-firmware/qcom/a630_gmu.bin /lib/firmware/qcom/
 COPY ./linux-firmware/qcom/a630_sqe.fw /lib/firmware/qcom/
 COPY ./linux-firmware/qcom/sdm845/a630_zap.mbn /lib/firmware/qcom/sdm845/
 COPY ./linux-firmware/qcom/venus-5.2/venus.mbn /lib/firmware/qcom/venus-5.2/
+COPY ./linux-firmware/qcom/sdm845/adsp.mbn /usr/lib/firmware/qcom/sdm845/
 
 # Install openpilot python packages
 COPY ./userspace/uv /tmp/agnos/uv
@@ -181,6 +182,7 @@ COPY ./userspace/files/ssh*_config /etc/ssh/
 COPY ./userspace/files/logrotate.conf /etc/
 COPY ./userspace/files/rsyslog /etc/logrotate.d/
 COPY ./userspace/files/usb0.conf /etc/dnsmasq.d/
+COPY ./userspace/files/asound.conf /etc
 RUN chmod 644 /etc/logrotate.conf
 RUN touch -r /lib/systemd/systemd /etc/fstab
 
